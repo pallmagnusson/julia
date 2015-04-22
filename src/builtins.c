@@ -616,7 +616,7 @@ JL_CALLABLE(jl_f_tuple)
 {
     size_t i;
     if (nargs == 0) return (jl_value_t*)jl_emptytuple;
-    jl_value_t **types = alloca(nargs*sizeof(jl_value_t*));
+    jl_value_t **types = (jl_value_t**)alloca(nargs*sizeof(jl_value_t*));
     for(i=0; i < nargs; i++) {
         types[i] = jl_typeof(args[i]);
     }
