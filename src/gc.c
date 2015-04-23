@@ -42,7 +42,7 @@ static long system_page_size;
 
 // malloc wrappers, aligned allocation
 
-#ifdef _P64
+#if defined(_P64) && !defined(_COMPILER_MICROSOFT_)
 #define malloc_a16(sz) malloc(((sz)+15)&-16)
 #define free_a16(p) free(p)
 
@@ -2668,7 +2668,7 @@ DLLEXPORT void *jl_gc_managed_realloc(void *d, size_t sz, size_t oldsz, int isal
 
     sz = (sz+15) & -16;
     void *b;
-#ifdef _P64
+#if defined(_P64) && !defined(_COMPILER_MICROSOFT_)
     b = realloc(d, sz);
 #elif defined(_OS_WINDOWS_)
     if (isaligned)
